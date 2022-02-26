@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sketch Identifier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js" type="text/javascript"></script>
+  
+  
+    
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body style="background-color: #90E0EF !important; color: #03045E;">
+
+<center>
+
+<div class="bg-primary" style="top:0 !important; position: absolute; width: 100%; padding: 10px; font-size: 24px; font-weight: bold;">Sketch Identifier
+     <button class="btn btn-info" style="float: right;" data-toggle="modal" data-target="#sketch_images">Show Sketch</button>
+</div>
+
+<div class="modal fade" id="sketch_images">
+
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+  <button class="close" data-dimiss="modal" style="float: right;">&times;</button>
+  <h4 class="modal-title">SKETCHES</h4>
+</div>
+<div class="modal-body">
+  
+</div>
+</div>
+</div>
+
+</div>
+<br>
+<h3 style="margin-top: 60px; background-color: #CAF0F8; text-align: center !important; width:fit-content; height: fit-content; padding:5px">Sketch Name: </h3><span id="sketch_name"></span>
+<br>
+<h3 style="background-color: #CAF0F8; text-align: center !important; width:fit-content; height: fit-content; padding:5px;">Confidence: </h3><span id="confidence"></span>
+<br>
+<button onclick="clear_canvas" class="btn btn-danger">Clear Canvas</button>
+<h3 style="background-color: #00B4D8; text-align: center !important; width:fit-content; height: fit-content; padding:5px;">Sketch to be Drawn: <span id="sketch_draw"></span></h3>
+<div style="text-align: left;" clasns="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+<h2>Score: <span id="score"></span></h2>
+</div>
+<div style="right: -1080px; top: -50;" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+<h2>Time Remaining: <span id="time_rem"></span></h2>
+</div>
+
+</center>
+
+<script src="main.js"></script>
+</body>
