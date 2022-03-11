@@ -5,34 +5,64 @@ answer_holder = "";
 score = 0;
 timer_counter = 0;
 timer_check = "";
+res_label = "";
 
-random_number = Math.floor(Math.random()*quick_draw_data_set.length);
+data_len = quick_draw_data_set.length;
+random_number = Math.floor((Math.random()*data_len)+1);
 console.log(random_number);
 sketch_dra = quick_draw_data_set[random_number];
 document.getElementById("sketch_draw").innerHTML = sketch_dra;
 
 function preload()
-{}
+{
+    classifier = ml5.imageClassifier("DoodleNet");
+}
 
 function setup()
 {
     canvas = createCanvas(480, 380);
     canvas.center();
-
-    random_number = Math.floor(Math.random()*quick_draw_data_set.length);
-    console.log(random_number);
-    sketch_draw = quick_draw_data_set[random_number];
+    background("white");
+    
+    canvas.mouseReleased(classifyCanvas);
 }
 
 function draw()
 {
     check_sketch();
 
-    if (check_sketch == sketch)
+    if (drawn_sketch == sketch)
     {
         answer_holder = "set";
         score++;
         document.getElementById("score").innerHTML = score;
+    }
+     
+    strokeWeight(10);
+    stroke("black");
+    if (mouseIsPressed)
+    {
+        line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+}
+
+function classifyCanvas()
+{
+    classifier.classify(canvas, gotResult);
+}
+
+function gotResult(error, results)
+{
+    if (error)
+    {
+        console.error(error);
+    } else
+    {
+        console.log(results);
+        drawn_sketch = results[0].label;
+        document.getElementById("sketch_name").innerHTML = drawn_sketch;
+        perc = Math.round(results[0].confidence*100);
+        document.getElementById("confidence").innerHTML = perc.toFixed(2)+"%";
     }
 }
 
@@ -44,24 +74,18 @@ function clear_canvas()
 function update_canvas()
 {
     background("white")
-    random_number = Math.floor(Math.random()*quick_draw_data_set.length);
+    random_number = Math.floor(Math.random()*data_len);
     console.log(random_number);
     sketch_dra = quick_draw_data_set[random_number];
     document.getElementById("sketch_draw").innerHTML = sketch_dra;
 }
-
-function create_sketch()
-{}
-
-function draw_sketch()
-{}
 
 function check_sketch()
 {
     timer_counter++;
     document.getElementById("time_rem").innerHTML = timer_counter;
     console.log(timer_counter);
-    if (timer_counter > 20000)
+    if (timer_counter > 400)
     {
         timer_counter = 0;
         timer_check = "completed"
@@ -74,3 +98,4 @@ function check_sketch()
         update_canvas();
     }
 }
+
